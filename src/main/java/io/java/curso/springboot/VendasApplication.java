@@ -18,10 +18,11 @@ public class VendasApplication {
         return args -> {
             System.out.println("SALVANDO CLIENTES");
             clienteRepository.save(new Cliente("Doublas"));
-            clienteRepository.save(new Cliente("Linoln"));
+            clienteRepository.save(new Cliente("Lincoln"));
 
-            boolean existe= clienteRepository.existsByNome("Lincoln");
-            System.out.println("Existe um cliente com o nome Lincoln? "+existe);
+            List<Cliente> clienteList= clienteRepository.encontrarPorNome("Lincoln");
+
+            clienteList.forEach(System.out::println);
         };
     }
 
