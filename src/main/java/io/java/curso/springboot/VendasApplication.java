@@ -18,35 +18,10 @@ public class VendasApplication {
         return args -> {
             System.out.println("SALVANDO CLIENTES");
             clienteRepository.save(new Cliente("Doublas"));
-            clienteRepository.save(new Cliente("Lincoln"));
+            clienteRepository.save(new Cliente("Linoln"));
 
-            List<Cliente> listaDeClientes = clienteRepository.findAll();
-            listaDeClientes.forEach(System.out::println);
-
-            System.out.println("ATUALIZANDO CLIENTES");
-            listaDeClientes.forEach((cliente -> {
-                cliente.setNome(cliente.getNome()+" atualizado.");
-                clienteRepository.save(cliente);
-            }));
-            
-            listaDeClientes = clienteRepository.findAll();
-            listaDeClientes.forEach(System.out::println);
-
-            System.out.println("BUSCANDO CLIENTES POR NOME");
-            clienteRepository.findBynomeLike("Lin").forEach(System.out::println);
-
-            System.out.println("DELETANDO TODOS OS CLIENTES");
-            clienteRepository.findAll().forEach(cliente -> {
-                clienteRepository.delete(cliente);
-            });
-
-            listaDeClientes = clienteRepository.findAll();
-            if(listaDeClientes.isEmpty()){
-                System.out.println("NENHUM CLIENTE ENCONTRADO NA BASE DE DADOS");
-            }else{
-                listaDeClientes.forEach(System.out::println);
-            }
-
+            boolean existe= clienteRepository.existsByNome("Lincoln");
+            System.out.println("Existe um cliente com o nome Lincoln? "+existe);
         };
     }
 
