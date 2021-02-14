@@ -1,12 +1,9 @@
 package io.java.curso.springboot.domain;
 
-import jdk.internal.org.jline.utils.Colors;
-import org.hibernate.annotations.ManyToAny;
-
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name="pedido")
@@ -26,6 +23,17 @@ public class Pedido {
 
     @Column(name = "total", length = 20, precision = 2)
     private BigDecimal total;
+
+    @OneToMany(mappedBy = "pedido")
+    List<ItemPedido> itens;
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
+    }
 
     public Integer getId() {
         return id;
