@@ -26,15 +26,12 @@ public class ClienteRepository {
         return cliente;
     }
 
+    public List<Cliente> buscarPorNome(String nome){
+        return jdbcTemplate.query(SELECT_ALL.concat(" where nome like '%"+nome+"%'"),getClienteRowMapper());
+    }
+
     public List<Cliente> listarClientes() {
-        return jdbcTemplate.query(SELECT_ALL, new RowMapper<Cliente>() {
-            @Override
-            public Cliente mapRow(ResultSet resultSet, int i) throws SQLException {
-                Integer id = resultSet.getInt("id");
-                String nome = resultSet.getString("nome");
-                return new Cliente(id, nome);
-            }
-        });
+        return jdbcTemplate.query(SELECT_ALL, getClienteRowMapper());
     }
 
     public Cliente atualizar(Cliente cliente) {
@@ -47,5 +44,16 @@ public class ClienteRepository {
     }
     public void deletar(Integer id){
         jdbcTemplate.update(DELETE,new Object[]{id});
+    }
+
+    private RowMapper<Cliente> getClienteRowMapper() {
+        return new RowMapper<Cliente>() {
+            @Override
+            public Cliente mapRow(ResultSet resultSet, int i) throws SQLException {
+                Integer id = resultSet.getInt("id");
+                String nome = resultSet.getString("nome");
+                return new Cliente(id, nome);
+            }
+        };
     }
 }
