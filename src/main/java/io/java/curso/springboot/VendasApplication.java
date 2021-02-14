@@ -1,28 +1,40 @@
 package io.java.curso.springboot;
 
 import io.java.curso.springboot.domain.Cliente;
+import io.java.curso.springboot.domain.Pedido;
 import io.java.curso.springboot.repository.ClienteRepository;
+import io.java.curso.springboot.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @SpringBootApplication
 public class VendasApplication {
 
     @Bean
-    public CommandLineRunner init(@Autowired ClienteRepository clienteRepository) {
+    public CommandLineRunner init(
+            @Autowired ClienteRepository clienteRepository,
+            @Autowired PedidoRepository pedidoRepository) {
         return args -> {
             System.out.println("SALVANDO CLIENTES");
-            clienteRepository.save(new Cliente("Doublas"));
-            clienteRepository.save(new Cliente("Lincoln"));
 
-            List<Cliente> clienteList= clienteRepository.encontrarPorNome("Lincoln");
+            Cliente clienteVip = new Cliente("Rafael");
+            clienteRepository.save(clienteVip);
 
-            clienteList.forEach(System.out::println);
+            Pedido p = new Pedido();
+            p.setCliente(clienteVip);
+            p.setDataPedido(LocalDate.now());
+            p.setTotal(BigDecimal.valueOf(100));
+            pedidoRepository.save(p);
+
+            Cliente cliente = clienteRepository.findClienteFetchPedidos(clienteVip.getId());
+            System.out.println(cliente);
+            System.out.println(cliente.getPedidos());
         };
     }
 

@@ -14,27 +14,20 @@ public class Cliente {
     @Column(name = "nome", length = 100)
     private String nome;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos;
-
-    public Set<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(Set<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
 
     public Cliente() {
     }
 
-    public Cliente(Integer id, String nome) {
-        this.id = id;
+    public Cliente(String nome) {
         this.nome = nome;
     }
 
-    public Cliente(String nome) {
+    public Cliente(Integer id, String nome, Set<Pedido> pedidos) {
+        this.id = id;
         this.nome = nome;
+        this.pedidos = pedidos;
     }
 
     public Integer getId() {
@@ -53,11 +46,20 @@ public class Cliente {
         this.nome = nome;
     }
 
+    public Set<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(Set<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
+                ", pedidos=" + pedidos +
                 '}';
     }
 }
