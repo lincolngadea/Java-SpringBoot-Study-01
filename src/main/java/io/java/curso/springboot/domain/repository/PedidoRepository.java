@@ -1,7 +1,7 @@
-package io.java.curso.springboot.repository;
+package io.java.curso.springboot.domain.repository;
 
-import io.java.curso.springboot.domain.Cliente;
-import io.java.curso.springboot.domain.Pedido;
+import io.java.curso.springboot.domain.entity.Cliente;
+import io.java.curso.springboot.domain.entity.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

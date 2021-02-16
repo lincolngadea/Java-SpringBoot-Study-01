@@ -1,6 +1,6 @@
-package io.java.curso.springboot.repository;
+package io.java.curso.springboot.domain.repository;
 
-import io.java.curso.springboot.domain.Cliente;
+import io.java.curso.springboot.domain.entity.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

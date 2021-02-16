@@ -1,4 +1,4 @@
-package io.java.curso.springboot.domain;
+package io.java.curso.springboot.domain.entity;
 
 import javax.persistence.*;
 import java.util.Set;
